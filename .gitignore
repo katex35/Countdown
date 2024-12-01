@@ -1,0 +1,11 @@
+.venv/
+.app.py
+__pycache__/
+*.pyc
+*.log
+.DS_Store
+oldapp.py
+oldindex.html
+oldoldindex.html
+newapp.py
+newindex.html

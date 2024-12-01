@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown</title>
+    <style>
+        @font-face {
+            font-family: "Neue Machina";
+            src: url("/static/fonts/NeueMachina-Regular.otf") format("opentype");
+        }
+
+        body {
+            font-family: "Neue Machina", Arial, sans-serif;
+            color: #47d7ac;
+            background: black;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #left-message {
+            margin-top: 10px;
+            font-size: 1vw;
+            color: #aaa;
+            font-family: "Neue Machina", Arial, sans-serif;
+        }
+        #logo {
+            width: 15vw;
+            margin-bottom: 0vw;
+            margin-top: -20vw;
+        }
+
+        #countdown {
+            font-size: 8vw;
+            font-weight: bold;
+            color: #fff7af;
+            margin-top: 4vw;
+        }
+
+        @media (max-width: 768px) {
+            #left-message {
+                font-size: 2.5vw;
+            }
+
+            #countdown {
+                font-size: 8vw;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            #left-message {
+                font-size: 2.5vw;
+            }
+
+            #countdown {
+                font-size: 8vw;
+            }
+        }
+    </style>
+    <script>
+        function startCountdown(targetDate) {
+            const countdownElement = document.getElementById("countdown");
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance <= 0) {
+                    countdownElement.textContent = "00:00:00:00";
+                    clearInterval(countdownInterval);
+                } else {
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    countdownElement.textContent = `${String(days).padStart(2, "0")}:${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+                }
+            }
+
+            const countdownInterval = setInterval(updateCountdown, 1000);
+            updateCountdown();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const countdownTarget = new Date("2025-03-01T00:00:00Z").getTime();
+            startCountdown(countdownTarget);
+        });
+    </script>
+</head>
+
+<body>
+    <div id="container">
+        <img id="logo" src="/static/images/oxyz.png" alt="Logo">
+        <div id="countdown">00:00:00:00</div>
+        <div id="left-message">Left for the...</div>
+    </div>
+</body>
+
+</html>
